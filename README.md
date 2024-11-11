@@ -6,10 +6,15 @@ PoupaPig is a personal finances management project.
 ## Stack
 
 Typescript
+
 Node.JS
+
 Nest.JS
+
 Docker
+
 AWS RDS
+
 AWS EC2
 
 ## Installation
