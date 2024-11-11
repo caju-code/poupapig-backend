@@ -1,4 +1,5 @@
 # poupapig-backend
+
 Backend repository for the PoupaPig project.
 
 PoupaPig is a personal finances management project.
