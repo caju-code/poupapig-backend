@@ -1,0 +1,121 @@
+
+
+// If schema name is omitted, it will default to "public" schema.
+Table users as U {
+  id uuid [pk] 
+  full_name varchar
+  email varchar
+  birthdate date
+  password string
+  user_type enum
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+enum user_type {
+  consultant
+  main_user //TODO: mudar nome
+}
+
+
+// "projetos" ou "wallets"
+// podemos adicionar currency e pj/pf no futuro
+Table pigs {
+  id uuid [pk] 
+  user_id uuid
+  name varchar
+  period_start_at date // date_trunc(day) 
+  periodicity enum 
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+enum periodicity {
+  month
+  quarter
+  semester
+  year
+}
+
+Table inflows {
+  id uuid [pk]
+  pig_id uuid [not null]
+  beneficiary_id uuid [not null]
+  amount float
+  due_amount float
+  received_at date //chave p/ distinguir previewed vs executed
+  due_payday date //colocar apenas dentro do periodo do pig
+  inflow_category enum
+  start_at date
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+enum inflow_category {
+  income
+  financial_transaction
+  savings_withdrawal
+  remaining_balance
+}
+
+Table budgets {
+  id uuid [pk]
+  pig_id uuid
+  amount float
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+//pendente
+Table outflows {
+  id uuid [pk]
+  user_id uuid
+  secondary_user_id uuid
+  amount float
+  due_amount float
+  payed_at date
+  due_payday date
+  payment_method enum
+  budget_id fk
+  start_at date
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+
+// id
+// user_id
+// category_id
+// due_amount float
+// **amount** (duplicação da soma outflows 
+// - otimização)
+// date
+// comment text
+
+//pigs
+Ref: users.id <> pigs.user_id
+
+//inflows
+Ref: inflows.pig_id > pigs.id
+Ref: inflows.beneficiary_id > users.id
+
+//budget
+Ref: budgets.pig_id > pigs.id
+
+//outflow
+Ref: outflow.pig_id > pigs.id
+
+// uuid => "identificador hash"
+// pk = primary key "identificador único" 
+// fk = foreign key "relacionamento"
+
+// soft delete 
+
+
+// https://poupapig.io/users/
+
