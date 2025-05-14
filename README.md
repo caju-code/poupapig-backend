@@ -30,8 +30,11 @@ $ npm install
 # development
 $ npm run start
 
-# watch mode
+# watch mode and initiate dev db on docker (credentials are on docker-compose file)
 $ npm run start:dev
+$ docker compose up -d
+# to stop db
+$ docker compose down
 
 # production mode
 $ npm run start:prod
