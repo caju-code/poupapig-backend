@@ -7,10 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'test',
+      port: 5432:5432,
+      username: 'postgres',
+      password: 'pass',
+      database: 'postgres',
       entities: [],
       synchronize: true, //Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
     }),
